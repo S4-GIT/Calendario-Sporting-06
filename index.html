@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sporting 06 - Bem-vindo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    /* Configurações gerais */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #1b1b1b;
+    color: #eaeaea;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tela inicial e calendário */
+.welcome-screen, #calendario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    height: 100vh;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #1f1f1f, #333);
+}
+
+.welcome-screen.active, #calendario.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Título e parágrafo */
+h1 {
+    font-size: 50px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #ffffff, #888888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p {
+    font-size: 20px;
+    margin: 15px 0;
+    color: #cccccc;
+    line-height: 1.5;
+}
+
+/* Botão de transição */
+.transition-button {
+    background-color: #444;
+    color: #eaeaea;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.transition-button:hover {
+    background-color: #666;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Calendário */
+#calendario {
+    display: none;
+    width: 90%;
+    max-width: 800px;
+    padding: 30px;
+    background-color: #2a2a2a;
+    color: #eaeaea;
+    border-radius: 12px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+#calendario h2 {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* Estilo da tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    padding: 15px;
+    font-size: 16px;
+    border-bottom: 1px solid #444;
+}
+
+table th {
+    background-color: #444;
+    color: #eaeaea;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+table td {
+    color: #ccc;
+}
+
+table tbody tr:hover {
+    background-color: #333;
+}
+
+/* Botão voltar */
+#voltar {
+    align-self: flex-start;
+    background-color: #888;
+    color: #1b1b1b;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#voltar:hover {
+    background-color: #aaa;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Media Queries para responsividade */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    p, .transition-button, #voltar {
+        font-size: 14px;
+    }
+
+    table th, table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+    </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("ir-calendario");
+    const backButton = document.getElementById("voltar");
+    const welcomeScreen = document.querySelector(".welcome-screen");
+    const calendarioSection = document.getElementById("calendario");
+
+    // Função para mostrar a tela de calendário com animação
+    button.addEventListener("click", function () {
+        welcomeScreen.classList.remove("active");
+        setTimeout(() => {
+            welcomeScreen.style.display = "none";
+            calendarioSection.style.display = "flex";
+            setTimeout(() => calendarioSection.classList.add("active"), 50);
+        }, 600);
+    });
+
+    // Função para voltar à tela inicial com animação
+    backButton.addEventListener("click", function () {
+        calendarioSection.classList.remove("active");
+        setTimeout(() => {
+            calendarioSection.style.display = "none";
+            welcomeScreen.style.display = "flex";
+            setTimeout(() => welcomeScreen.classList.add("active"), 50);
+        }, 600);
+    });
+
+    // Exibir tela de boas-vindas inicialmente
+    welcomeScreen.classList.add("active");
+});
+    </script>
+</head>
+<body>
+    <div class="welcome-screen">
+        <h1>Sporting 06</h1>
+        <p>Bem-vindo ao nosso clube virtual de futebol!</p>
+        <button id="ir-calendario" class="transition-button">Ir para o Calendário</button>
+    </div>
+    
+    <section id="calendario" class="tab-content">
+        <button id="voltar" class="transition-button">Voltar</button>
+        <h2>Calendário</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Oponente</th>
+                    <th>Hora</th>
+                    <th>Tipo de Jogo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <!-- Mais linhas podem ser adicionadas -->
+            </tbody>
+        </table>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+  </html>
